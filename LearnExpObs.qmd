@@ -1,0 +1,267 @@
+---
+title: "Learning from experimental and observational data"
+author: "Guido Biele"
+format: revealjs
+editor: source
+---
+
+```{r}
+library(dagitty)
+source("dag_utils.R")
+par(mar=c(3,3,0,1), mgp=c(1,.5,0), tck=-.01)
+```
+
+
+# Background 
+
+## Bias
+
+- Most scientific enterprises attempt to estimate some quantity
+- **Bias** is present if our estimate of that quantity systematically deviates from the true value. 
+- When thinking about bias, it is important to clearly define the **estimand**: What is it that we are trying to estimate?
+  - $bias = estimand - estimate$
+  
+## Estimate the right thing
+
+A well described **estimand** is characterized by
+
+- a clear effect measure
+  - i.e., not just "Stress", but "Stress, operationalized as ... "
+- a clear target population
+  - for which set of humans do we want to measure an effect? 
+
+## Internal and external validity
+
+- if a study has internal validity, we can be sure that we have correctly estimated the effect of a manipulation in the study sample
+- if a study has external validity, the effect in our study sample is the same as in the target population
+
+<br> 
+
+- **Studies with internal or external validity can still be biased**
+- **Internal and external validity are necessary but not sufficient conditions for obtaining unbiased estimates.**
+
+
+## Bias in observational studies
+
+Nobody needs convincing that confounding is a problem
+
+:::: {.columns}
+::: {.column width="48%"}
+Observed confounders are not a problem, we can simply adjust.
+```{r}
+fork = dagitty(
+  "dag{
+  C->T;
+  C->O;
+  }")
+coord.list = 
+  list(
+    x=c(T=0,O=2,C=1),
+    y=c(T=0,O=0,C=-1))
+coordinates(fork) = coord.list
+adjustedNodes(fork)  = "C"
+drawmydag(fork)
+```
+:::
+
+::: {.column width="4%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="48%"}
+**Un**observed confounders are a problem! There is little we can do!
+```{r}
+fork = dagitty(
+  "dag{
+  U->T;
+  U->O;
+  }")
+coord.list = 
+  list(
+    x=c(T=0,O=2,U=1),
+    y=c(T=0,O=0,U=-1))
+latents(fork) = "U"
+coordinates(fork) = coord.list
+drawmydag(fork)
+```
+:::
+::::
+
+## Selection bias
+
+```{r}
+#| fig-align: "center"
+collider = dagitty(
+  "dag{
+  T->S;
+  L->S;
+  L->O;
+  }")
+coord.list = 
+  list(
+    x=c(T=0,O=2,S=1,L=0),
+    y=c(T=0,O=.5,S=.5,L=1))
+coordinates(collider) = coord.list
+adjustedNodes(collider)  = "S"
+drawmydag(collider)
+```
+
+If the treatment determines who stays in the study and there is another variable L that causes who stays and an outcome, there will be selection bias
+
+## Selection bias in obs. & exp. studies
+
+:::: {.columns}
+::: {.column width="48%"}
+```{r}
+collider = dagitty(
+  "dag{
+  Dist->FU;
+  Edu->FU;
+  Edu->Fit;
+  }")
+coord.list = 
+  list(
+    x=c(Dist=0,Fit=2,FU=1,Edu=0),
+    y=c(Dist=0,Fit=.5,FU=.5,Edu=1))
+coordinates(collider) = coord.list
+latents(collider) = "Edu"
+adjustedNodes(collider)  = "FU"
+drawmydag(collider)
+```
+Estimating the effect of distance to work out place on fitness will be biased if participation in the follow up measurement depends on that distance and unobserved education influences both distance and fitness.
+:::
+
+::: {.column width="4%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="48%"}
+```{r}
+collider = dagitty(
+  "dag{
+  Med->Si;
+  Co->Si;
+  Si->DO;
+  Co->Sympt;
+  }")
+coord.list = 
+  list(
+    x=c(Med=0,Sympt=2,Si=.75,Co=0,DO=1.25),
+    y=c(Med=0,Sympt=.5,Si=.5,Co=1,DO=.5))
+coordinates(collider) = coord.list
+latents(collider) = "Co"
+adjustedNodes(collider)  = "DO"
+drawmydag(collider)
+```
+In an RCT where medication status influences side effects, which influence drop out, and unobserved comorbid disorders influence side effects and symptoms, an unbiased causal effect cannot be estimated.
+:::
+::::
+
+
+## Bias in experimental studies I
+:::: {.columns}
+::: {.column width="48%"}
+```{r}
+#| fig-width: 6
+fork = dagitty(
+  "dag{
+  T->O;
+  C->O;
+  }")
+coord.list = 
+  list(
+    x=c(T=0,O=1,C=0),
+    y=c(T=0,O=0,C=1))
+coordinates(fork) = coord.list
+drawmydag(fork)
+```
+:::
+
+::: {.column width="4%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="48%"}
+```{r}
+#| fig-width: 6
+fork = dagitty(
+  "dag{
+  Treat->Sympt;
+  Age->Sympt;
+  }")
+coord.list = 
+  list(
+    x=c(Treat=0,Sympt=1,Age=0),
+    y=c(Treat=0,Sympt=0,Age=1))
+coordinates(fork) = coord.list
+drawmydag(fork)
+```
+:::
+::::
+
+If there are some characteristics C that influence the effect of the treatment T on the outcome O (T-C-interaction), and the distribution of C is different in the study sample and target population, a randomised experiment will produce biased effect estimates. 
+
+## "Bias" in experimental studies II
+
+
+
+
+:::: {.columns}
+::: {.column width="48%"}
+```{r}
+#| fig-width: 7
+outcomes = dagitty(
+  "dag{
+  T->M;
+  M->O_1;
+  M->O_2
+  }")
+coord.list = 
+  list(
+    x=c(T=0,M=1,O_1=2,O_2=2),
+    y=c(T=0,M=0,O_1=-1,O_2=1))
+coordinates(outcomes) = coord.list
+drawmydag(outcomes)
+```
+When the outcomes of interest $O_1$ and $O_2$ depend exclusively on a common mediator $M$ then results about the effect on $O_1$ will be informative about the effect on $O_2$
+
+:::
+
+::: {.column width="4%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="48%"}
+```{r}
+#| fig-width: 7
+outcomes = dagitty(
+  "dag{
+  T->O_1;
+  T->O_2;
+  X->O_2;
+  }")
+coord.list = 
+  list(
+    x=c(T=0,O_1=2,O_2=2,X=0),
+    y=c(T=0,O_1=-1,O_2=1,X=1))
+coordinates(outcomes) = coord.list
+drawmydag(outcomes)
+```
+When Only one of the outcomes depends on and additional variable $X$, results from experiment with outcome $O_1$ are a biased estimate for the effect on $O_2$.
+
+:::
+::::
+
+
+## Translational research needs experiments and observation
+
+- Results from observational studies can be biased
+- But so are results from experiments
+- Experiments can be improved through random sampling of participants and investigation of multiple outcomes
+- Even then, many experiments cannot be performed for ethical reasons
+
+# Observational research is hard
+
+## Parental income and child mental health
+
+# What can we do?
