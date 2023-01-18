@@ -8,6 +8,10 @@ editor: source
 ```{r}
 library(dagitty)
 source("dag_utils.R")
+library(ggplot2)
+library(patchwork)
+theme_set(theme_light())
+theme_update(text = element_text(size = 20))
 par(mar=c(3,3,0,1), mgp=c(1,.5,0), tck=-.01)
 ```
 
@@ -262,6 +266,98 @@ When Only one of the outcomes depends on and additional variable $X$, results fr
 
 # Observational research is hard
 
-## Parental income and child mental health
+## Does parental income influence children’s mental health?
+
+:::: {.columns}
+::: {.column width="30%"}
+<small> Kinge et al.,<b> Parental income and mental disorders in children and adolescents: prospective register-based study.</b> IJE (2021). <br> "...associations between lower parental income and children’s mental disorders were partly, but not fully, attributed to other socio-demographic factors..." </small>
+:::
+::: {.column width="70%"}
+![Results of Kinge et al. 2021 IJE](pngs/Kinge_A.png)
+:::
+::::
+
+
+## Does parental income influence children’s mental health?
+
+:::: {.columns}
+::: {.column width="30%"}
+<small> Sariaslan et al., <b> No causal associations between childhood family income and subsequent psychiatric disorders, substance misuse and violent crime arrests]: a nationwide Finnish study of >650 000 individuals and their siblings. </b> IJE (2021)  </small>
+:::
+::: {.column width="70%"}
+![Results of Kinge et al. 2021 IJE](pngs/Sariaslan.png)
+:::
+::::
+
+## Study designs
+
+![DAGs for study designs](pngs/DAGdesigns.png)
+We can analyse one data set to see in how far the results of Sariaslan and Kinge depend on modelling assumptions.
+
+When the outcome is binary, sibling designs and panel designs with FE can only use a subset of data: Siblings and individuals with discordant outcomes, respectively.
+
+## Samples sizes and prevalence
+
+![](pngs/N_prev.png){width=90%,fig-align="center"}
+
+Choosing a particular study design introduces substantial differences between the study sample and the source and target population. 
+
+## Results: Odds & hazard ratios 
+
+![](pngs/ORIncp1.png)
+
+Association is stronger when parents do not already have a diagnosis.
+
+## Results: Odds & hazard ratios 
+
+
+![](pngs/ORIncp2.png)
+
+Original results of Kinge at al (2021) and Sariaslan et al (2021) can be replicated in this data set.
+
+## Results: Odds & hazard ratios 
+
+![](pngs/ORIncp3.png)
+Only a logistic (or cox) regression with adjustment finds an association.
+
+## Summary of results {background-image="pngs/bias.gif"  background-opacity="0.25"}
+
+- We can replicate the results of Kinge et al. (_there is an association_) and Sariaslan et al. (_there is no association_) using the same basic data set
+- Conditional logit regression also shows no effect 
+
+Sibling design and fixed effects panel model make fewer assumptions / have a higher internal validity. Should we rather trust these results?
+
+
+## Discussion: Income variability
+
+![](pngs/ICC.png)
+
+Income variation in designs with high internal validity is only a fraction (~20%) of the income variability between families.
+[Most income variations are very close to zero]
+
+# Discussion: Selection bias in sib-designs
+
+```{r}
+#| fig-align: "center"
+#| fig-width: 12
+load("pngs/SIB_SB.Rdata")
+plt
+```
+
+
+If parental income is a cause of # children and we are looking for a negative effect of income, sibling designs will show a biased (attenuated) association. That is, sibling design studies have higher internal validity lower external validity.
+
+# Conclusion
+
+
+- Different results of Kinge et al. (2021) and Sariaslan et al. (2021) are likely due to the choice of different analysis approaches
+
+- Neither study can say something convincingly about causal effects (Kinge et al. acknowledge)
+  - There is no categorical difference between "non-causal" and "causal" designs.
+  Causal inference always needs assumptions, which should be scrutinized.
+
+- __If__ parental income has an influence on child ADHD, the effect is likely small and also smaller than for depression or anxiety. _But the data cannot really tell us._
+
+![](pngs/Capture.PNG)
 
 # What can we do?
