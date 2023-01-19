@@ -48,13 +48,13 @@ A well described **estimand** is characterized by
 
 ## Internal and external validity
 
-- if a study has internal validity, we can be sure that we have correctly estimated the effect of a manipulation in the study sample
-- if a study has external validity, the estimated effect in our study sample is the same as in the target population
+- If a study has internal validity, we correctly estimate the effect of a manipulation in the study sample
+- If a study has external validity, the estimated effect in our study sample is the same as in the target population
 
 <br> 
 
-- **Studies with internal or external validity can still be biased**
-- **Internal and external validity are necessary but not sufficient conditions for obtaining unbiased estimates.**
+- **Studies with either internal or external validity can still be biased**
+- **Internal and external validity alone are necessary but not sufficient conditions for obtaining unbiased estimates.**
 
 
 ## Bias in observational studies
@@ -103,6 +103,8 @@ drawmydag(fork)
 :::
 ::::
 
+**Treatment randomisation prevent confounding.** 
+
 ## Selection bias
 
 ```{r}
@@ -144,7 +146,7 @@ latents(collider) = "Edu"
 adjustedNodes(collider)  = "FU"
 drawmydag(collider)
 ```
-Estimating the effect of distance to work out place on fitness will be biased if participation in the follow up (FU) measurement depends on that distance and unobserved education influences both distance and fitness. 
+Estimating the effect of distance to work out place on fitness will be biased if participation in the follow up (FU) depends on distance, and unobserved education influences both FU & fitness. 
 :::
 
 ::: {.column width="4%"}
@@ -169,11 +171,11 @@ latents(collider) = "Co"
 adjustedNodes(collider)  = "DO"
 drawmydag(collider)
 ```
-In an RCT where medication status influences side effects (Si), which influence drop out (DO), and unobserved comorbid disorders influence side effects and symptoms, an unbiased causal effect cannot be estimated.
+An RCT where medication influences side effects (Si), which influence drop out (DO), and unobserved comorbid disorders influence Si & symptoms will produce a biased effect estimate.
 :::
 ::::
 
-**Experiments with drop out require, just as observational studies, the assumption of no unobserved confounding!**
+**Experiments with drop out also require the assumption of no unobserved confounding!**
 
 ## Bias in experimental studies I
 :::: {.columns}
@@ -277,7 +279,7 @@ When only one of the outcomes depends on and additional variable $X$, results fr
 
 :::: {.columns}
 ::: {.column width="30%"}
-Kinge et al.,<b> Parental income and mental disorders in children and adolescents: prospective register-based study.</b> IJE (2021). <br> "...associations between lower parental income and children’s mental disorders were partly, but not fully, attributed to other socio-demographic factors..." 
+Kinge et al.,<b> Parental income and mental disorders in children and adolescents: prospective register-based study.</b> IJE (2021). <br> <small> "...associations between lower parental income and children’s mental disorders were partly, but not fully, attributed to other socio-demographic factors..." </small>
 :::
 ::: {.column width="70%"}
 ![Results of Kinge et al. 2021 IJE](pngs/Kinge_A.png)
@@ -289,7 +291,7 @@ Kinge et al.,<b> Parental income and mental disorders in children and adolescent
 
 :::: {.columns}
 ::: {.column width="30%"}
-Sariaslan et al., <b> No causal associations between childhood family income and subsequent psychiatric disorders, substance misuse and violent crime arrests]: a nationwide Finnish study of >650 000 individuals and their siblings. </b> IJE (2021)
+Sariaslan et al., <b> No causal associations between childhood family income and subsequent psychiatric disorders, substance misuse and violent crime arrests: a nationwide Finnish study of >650 000 individuals and their siblings. </b> IJE (2021)
 :::
 ::: {.column width="70%"}
 ![Results of Sariaslan et al. 2021 IJE](pngs/Sariaslan.png)
@@ -318,9 +320,7 @@ Choosing a particular study design introduces substantial differences between th
 
 ## Results: Odds & hazard ratios 
 ![](pngs/ORIncp1b.png)
-
 Association is stronger when parents do not already have a diagnosis.
-
 
 ## Results: Odds & hazard ratios 
 ![](pngs/ORIncp2b.png)
@@ -339,44 +339,27 @@ Sibling design and fixed effects panel model make fewer assumptions / have a hig
 
 ## Income variability
 
-
-```{r}
-#| fig-align: "center"
-load("pngs/ICC.Rdata")
-plt
-```
+![](pngs/ICC.png){fig-align="center"}
 
 Income variation in designs with high internal validity is only a fraction (~20%) of the income variability between families.
 
 ## Selection bias 
-
-```{r}
-#| fig-align: "center"
-load("pngs/SIB_SB.Rdata")
-plt
-```
+![](pngs/SIB_SB.png){fig-align="center"}
 
 If parental income is a cause of # children & we are looking for a negative effect of income, sibling designs show a biased (attenuated) association. Sibling design studies have higher internal validity lower but external validity. 
 
 ## Conclusion
 
 - Different results of Kinge et al. (2021) and Sariaslan et al. (2021) are likely due to the choice of different analysis approaches
+- There is no categorical difference between "non-causal" and "causal" designs.
+- Causal inference always needs assumptions, which should be scrutinized.
 
-- Neither study can say something convincingly about causal effects (Kinge et al. acknowledge)
-  - There is no categorical difference between "non-causal" and "causal" designs.
-  Causal inference always needs assumptions, which should be scrutinized.
-
-- __If__ parental income has an influence on child ADHD, the effect is likely small and also smaller than for depression or anxiety. _But the data cannot really tell us._
-
-![](pngs/Capture.PNG)
 
 # Summary
 
-- Causal inference is hard, and experiments do not guarantee unbiased causal effects
-  - randomized treatment assignment is not enough, we also need truly random samples and relevant outcome
-- Admittedly, causal inference with observational data is even harder, but there are designs with higher internal validity
-  - Difference in difference
-  - Regression discontinuity
-  - Instrumental variables
-  - sibling designs
-- But "causal designs" are no panacea: Each study requires careful consideration
+- Causal inference is hard, RCTs do not guarantee unbiased causal effects
+  - randomized treatment assignment is not enough
+- Still, causal inference with observational data is harder
+  - designs with higher internal validity:  Difference in difference, Regression discontinuity, Instrumental variables, sibling designs
+  - But "causal designs" are no panacea: Each study requires careful consideration
+- **Sensitivity analysis: What to the results look like if we assume some unobserved confounding**
