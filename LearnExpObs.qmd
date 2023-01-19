@@ -1,9 +1,14 @@
 ---
 title: "Learning from experimental and observational data"
 author: "Guido Biele"
-format: revealjs
+format:
+  revealjs:
+    embed-resources: true
 editor: source
 ---
+
+
+# Background 
 
 ```{r}
 library(dagitty)
@@ -15,13 +20,20 @@ theme_update(text = element_text(size = 20))
 par(mar=c(3,3,0,1), mgp=c(1,.5,0), tck=-.01)
 ```
 
+```{css}
+.reveal .title {
+  font-size: 2em !important;
+}
+.reveal p {
+  font-size: 0.8em !important;
+}
 
-# Background 
+```
 
 ## Bias
 
-- Most scientific enterprises attempt to estimate some quantity
-- **Bias** is present if our estimate of that quantity systematically deviates from the true value. 
+- Most scientific enterprises attempt to estimate some quantity or effect
+- **Bias** is present if our estimate of that effect systematically deviates from the true value 
 - When thinking about bias, it is important to clearly define the **estimand**: What is it that we are trying to estimate?
   - $bias = estimand - estimate$
   
@@ -32,12 +44,12 @@ A well described **estimand** is characterized by
 - a clear effect measure
   - i.e., not just "Stress", but "Stress, operationalized as ... "
 - a clear target population
-  - for which set of humans do we want to measure an effect? 
+  - for which set of humans do we want to measure the effect? 
 
 ## Internal and external validity
 
 - if a study has internal validity, we can be sure that we have correctly estimated the effect of a manipulation in the study sample
-- if a study has external validity, the effect in our study sample is the same as in the target population
+- if a study has external validity, the estimated effect in our study sample is the same as in the target population
 
 <br> 
 
@@ -110,7 +122,7 @@ adjustedNodes(collider)  = "S"
 drawmydag(collider)
 ```
 
-If the treatment determines who stays in the study and there is another variable L that causes who stays and an outcome, there will be selection bias
+If the treatment determines who stays in the study and there is another variable L that causes who stays and the outcome, there will be selection bias
 
 ## Selection bias in obs. & exp. studies
 
@@ -132,7 +144,7 @@ latents(collider) = "Edu"
 adjustedNodes(collider)  = "FU"
 drawmydag(collider)
 ```
-Estimating the effect of distance to work out place on fitness will be biased if participation in the follow up measurement depends on that distance and unobserved education influences both distance and fitness.
+Estimating the effect of distance to work out place on fitness will be biased if participation in the follow up (FU) measurement depends on that distance and unobserved education influences both distance and fitness. 
 :::
 
 ::: {.column width="4%"}
@@ -157,16 +169,17 @@ latents(collider) = "Co"
 adjustedNodes(collider)  = "DO"
 drawmydag(collider)
 ```
-In an RCT where medication status influences side effects, which influence drop out, and unobserved comorbid disorders influence side effects and symptoms, an unbiased causal effect cannot be estimated.
+In an RCT where medication status influences side effects (Si), which influence drop out (DO), and unobserved comorbid disorders influence side effects and symptoms, an unbiased causal effect cannot be estimated.
 :::
 ::::
 
+**Experiments with drop out require, just as observational studies, the assumption of no unobserved confounding!**
 
 ## Bias in experimental studies I
 :::: {.columns}
 ::: {.column width="48%"}
 ```{r}
-#| fig-width: 6
+#| fig-width: 7
 fork = dagitty(
   "dag{
   T->O;
@@ -187,7 +200,7 @@ drawmydag(fork)
 
 ::: {.column width="48%"}
 ```{r}
-#| fig-width: 6
+#| fig-width: 7
 fork = dagitty(
   "dag{
   Treat->Sympt;
@@ -206,10 +219,6 @@ drawmydag(fork)
 If there are some characteristics C that influence the effect of the treatment T on the outcome O (T-C-interaction), and the distribution of C is different in the study sample and target population, a randomised experiment will produce biased effect estimates. 
 
 ## "Bias" in experimental studies II
-
-
-
-
 :::: {.columns}
 ::: {.column width="48%"}
 ```{r}
@@ -228,7 +237,6 @@ coordinates(outcomes) = coord.list
 drawmydag(outcomes)
 ```
 When the outcomes of interest $O_1$ and $O_2$ depend exclusively on a common mediator $M$ then results about the effect on $O_1$ will be informative about the effect on $O_2$
-
 :::
 
 ::: {.column width="4%"}
@@ -251,8 +259,7 @@ coord.list =
 coordinates(outcomes) = coord.list
 drawmydag(outcomes)
 ```
-When Only one of the outcomes depends on and additional variable $X$, results from experiment with outcome $O_1$ are a biased estimate for the effect on $O_2$.
-
+When only one of the outcomes depends on and additional variable $X$, results from experiment with outcome $O_1$ are a biased estimate for the effect on $O_2$.
 :::
 ::::
 
@@ -260,7 +267,7 @@ When Only one of the outcomes depends on and additional variable $X$, results fr
 ## Translational research needs experiments and observation
 
 - Results from observational studies can be biased
-- But so are results from experiments
+- But the same is true for experiments
 - Experiments can be improved through random sampling of participants and investigation of multiple outcomes
 - Even then, many experiments cannot be performed for ethical reasons
 
@@ -270,7 +277,7 @@ When Only one of the outcomes depends on and additional variable $X$, results fr
 
 :::: {.columns}
 ::: {.column width="30%"}
-<small> Kinge et al.,<b> Parental income and mental disorders in children and adolescents: prospective register-based study.</b> IJE (2021). <br> "...associations between lower parental income and children’s mental disorders were partly, but not fully, attributed to other socio-demographic factors..." </small>
+Kinge et al.,<b> Parental income and mental disorders in children and adolescents: prospective register-based study.</b> IJE (2021). <br> "...associations between lower parental income and children’s mental disorders were partly, but not fully, attributed to other socio-demographic factors..." 
 :::
 ::: {.column width="70%"}
 ![Results of Kinge et al. 2021 IJE](pngs/Kinge_A.png)
@@ -282,43 +289,46 @@ When Only one of the outcomes depends on and additional variable $X$, results fr
 
 :::: {.columns}
 ::: {.column width="30%"}
-<small> Sariaslan et al., <b> No causal associations between childhood family income and subsequent psychiatric disorders, substance misuse and violent crime arrests]: a nationwide Finnish study of >650 000 individuals and their siblings. </b> IJE (2021)  </small>
+Sariaslan et al., <b> No causal associations between childhood family income and subsequent psychiatric disorders, substance misuse and violent crime arrests]: a nationwide Finnish study of >650 000 individuals and their siblings. </b> IJE (2021)
 :::
 ::: {.column width="70%"}
-![Results of Kinge et al. 2021 IJE](pngs/Sariaslan.png)
+![Results of Sariaslan et al. 2021 IJE](pngs/Sariaslan.png)
 :::
 ::::
 
 ## Study designs
 
-![DAGs for study designs](pngs/DAGdesigns.png)
-We can analyse one data set to see in how far the results of Sariaslan and Kinge depend on modelling assumptions.
+::: {.r-stack}
+![](pngs/DAGdesigns1.png){.fragment}
 
+![](pngs/DAGdesigns2.png){.fragment}
+
+![](pngs/DAGdesigns3.png){.fragment}
+:::
+We analyse one data set to see in how far the results of Sariaslan and Kinge depend on modelling assumptions.
+<br>
 When the outcome is binary, sibling designs and panel designs with FE can only use a subset of data: Siblings and individuals with discordant outcomes, respectively.
+
 
 ## Samples sizes and prevalence
 
-![](pngs/N_prev.png){width=90%,fig-align="center"}
+![](pngs/N_prev.png){width=150% fig-align="center"}
+Choosing a particular study design introduces substantial differences between the study sample and the source and target population.
 
-Choosing a particular study design introduces substantial differences between the study sample and the source and target population. 
 
 ## Results: Odds & hazard ratios 
-
-![](pngs/ORIncp1.png)
+![](pngs/ORIncp1b.png)
 
 Association is stronger when parents do not already have a diagnosis.
 
+
 ## Results: Odds & hazard ratios 
-
-
-![](pngs/ORIncp2.png)
-
+![](pngs/ORIncp2b.png)
 Original results of Kinge at al (2021) and Sariaslan et al (2021) can be replicated in this data set.
 
 ## Results: Odds & hazard ratios 
-
-![](pngs/ORIncp3.png)
-Only a logistic (or cox) regression with adjustment finds an association.
+![](pngs/ORIncp3b.png)
+**Only a logistic (or cox) regression with adjustment finds an association.**
 
 ## Summary of results {background-image="pngs/bias.gif"  background-opacity="0.25"}
 
@@ -327,28 +337,28 @@ Only a logistic (or cox) regression with adjustment finds an association.
 
 Sibling design and fixed effects panel model make fewer assumptions / have a higher internal validity. Should we rather trust these results?
 
+## Income variability
 
-## Discussion: Income variability
-
-![](pngs/ICC.png)
-
-Income variation in designs with high internal validity is only a fraction (~20%) of the income variability between families.
-[Most income variations are very close to zero]
-
-# Discussion: Selection bias in sib-designs
 
 ```{r}
 #| fig-align: "center"
-#| fig-width: 12
+load("pngs/ICC.Rdata")
+plt
+```
+
+Income variation in designs with high internal validity is only a fraction (~20%) of the income variability between families.
+
+## Selection bias 
+
+```{r}
+#| fig-align: "center"
 load("pngs/SIB_SB.Rdata")
 plt
 ```
 
+If parental income is a cause of # children & we are looking for a negative effect of income, sibling designs show a biased (attenuated) association. Sibling design studies have higher internal validity lower but external validity. 
 
-If parental income is a cause of # children and we are looking for a negative effect of income, sibling designs will show a biased (attenuated) association. That is, sibling design studies have higher internal validity lower external validity.
-
-# Conclusion
-
+## Conclusion
 
 - Different results of Kinge et al. (2021) and Sariaslan et al. (2021) are likely due to the choice of different analysis approaches
 
@@ -360,4 +370,13 @@ If parental income is a cause of # children and we are looking for a negative ef
 
 ![](pngs/Capture.PNG)
 
-# What can we do?
+# Summary
+
+- Causal inference is hard, and experiments do not guarantee unbiased causal effects
+  - randomized treatment assignment is not enough, we also need truly random samples and relevant outcome
+- Admittedly, causal inference with observational data is even harder, but there are designs with higher internal validity
+  - Difference in difference
+  - Regression discontinuity
+  - Instrumental variables
+  - sibling designs
+- But "causal designs" are no panacea: Each study requires careful consideration
