@@ -348,18 +348,19 @@ Income variation in designs with high internal validity is only a fraction (~20%
 
 If parental income is a cause of # children & we are looking for a negative effect of income, sibling designs show a biased (attenuated) association. Sibling design studies have higher internal validity lower but external validity. 
 
-## Conclusion
+## Summary {background-image="pngs/capture.png"  background-opacity="0.075"}
 
 - Different results of Kinge et al. (2021) and Sariaslan et al. (2021) are likely due to the choice of different analysis approaches
 - There is no categorical difference between "non-causal" and "causal" designs.
 - Causal inference always needs assumptions, which should be scrutinized.
 
 
-# Summary
+# Conclusion
 
-- Causal inference is hard, RCTs do not guarantee unbiased causal effects
+- Causal inference is hard, RCTs don't guarantee unbiasedness
   - randomized treatment assignment is not enough
-- Still, causal inference with observational data is harder
-  - designs with higher internal validity:  Difference in difference, Regression discontinuity, Instrumental variables, sibling designs
-  - But "causal designs" are no panacea: Each study requires careful consideration
-- **Sensitivity analysis: What to the results look like if we assume some unobserved confounding**
+- Especially applied research needs observational studies
+- Causal inference with observational data is harder
+  - But: Difference in difference, Regression discontinuity, Instrumental variables, Sibling designs ...
+  - "Causal designs" are no panacea!
+- **Sensitivity analysis: What do the results look like if we assume some unobserved confounding**
