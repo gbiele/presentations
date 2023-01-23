@@ -1,0 +1,104 @@
+---
+title: "Reproducible<br>data analysis"
+author: "Guido Biele"
+format:
+  revealjs:
+    embed-resources: true
+editor: source
+---
+
+## Reproducible research in a context {background-image="pngs/Badges.jpg" background-size="110%" background-opacity="0.075"}
+
+**Providing a reproducible analysis is the most important and easiest aspect of open science**
+
+-   data cannot always be easily shared
+-   analysis connects data and results
+-   confirming pre-registered hypotheses is less valuable without it
+-   pre-registration is often not possible or useful [^1]
+
+[^1]: Works well with standardized experiments, less so well with observational data. As an alternative to pre-registration, one can develop the analysis plan on a subset of the data.
+
+## Why reproducible research?
+
+-   builds trust
+-   reduces errors
+- makes it easier to write the method section ^[If there is code, one does not need to mention every inconsequential detail in the methods section.]
+-   streamlines manuscript writing
+
+## Levels of reproducible data analysis
+
+1.  Script all analysis steps
+2.  Version control software & public repositories for version control & publication
+3.  Scientific and technical publishing system for documenting and implementing analysis pipeline
+4.  Scientific and technical publishing system for writing papers
+
+## Tools for reproducible data analysis
+
+-   ![](pngs/R_logo.png){height="0.75in"} or any other programming language
+-   ![](pngs/RStudio-Logo-Flat.png){height="0.75in"} or other IDEs with git/github integration
+-   ![](pngs/Git-Logo.png){height="0.75in"}, ![](pngs/GitHub-logo-768x432.png){height="1in"} or other version control software
+-   ![](pngs/quarto.jpg){height="0.75in" layout-valign="bottom"},![](pngs/rmarkdown.png){height="1in"} or other scientific and technical publishing systems
+
+## Scripting {background-image="pngs/R_logo.png" background-opacity="0.15"}
+
+**Different scripts for**
+
+-   utility functions[^2]
+-   data cleaning and preparation[^3]
+-   running analyses [^4]
+-   preparing analysis results for the manuscript
+
+[^2]: Using functions to implement analysis steps makes the scripts more readable
+
+[^3]: If possible: Make packages that support common tasks in the lab, but don't underestimate how hard this is to do!
+
+[^4]: Use packages like `MplusAutomation` to interface with external software. 
+
+
+## Working around slow analysis parts
+
+
+<br>
+
+```{r}
+#| echo: true
+#| eval: false
+
+fn = "my_analysis_results.Rdata"
+
+if (file.exists(fn)) {
+  load(fn)
+} else {
+  # make my analysis
+  save(my_fit, file = fn)
+}
+
+```
+
+## Version control {background-image="pngs/Git-Logo.png" background-size="110%" background-opacity="0.075"}
+
+**Start each paper by setting up a (git/github) project**
+
+-   first step to later publishing the code
+-   version control easily allows to go back to older versions of the analysis
+-   saves as backup method [^5]
+-   **allows to work jointly on a project**
+-   ![](pngs/RStudio-Logo-Flat.png){height="0.5in"} is well integrated with git/github [(show)](https://github.com/gbiele){.external target="_blank"}
+
+[^5]: Can be especially useful on TSD
+
+
+## Document analysis pipeline in Rmarkdown {background-image="pngs/Science.png" background-size="65%" background-opacity="0.5"}
+
+
+
+- One R-markdown [document](http://htmlpreview.github.io/?https://github.com/VirologyCharite/SARS-CoV-2-VL-paper/blob/main/ExtendedMethods.html) [^6] describes
+  - data cleaning
+  - statistical analysis
+  - supplementary analyses
+  - generation of statistics for paper
+
+[^6]: [Repository](https://github.com/VirologyCharite/SARS-CoV-2-VL-paper)
+  
+  
+  
