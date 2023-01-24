@@ -28,27 +28,32 @@ editor: source
 [^2]: If there is code, one does not need to mention every inconsequential detail in the methods section.
 
 ## Levels of reproducible data analysis
-
+::: {.incremental}
 1.  Script all analysis steps
 2.  Version control software & public repositories for publication
 3.  Scientific and technical publishing system for documenting and implementing analysis pipeline
 4.  Scientific and technical publishing system for writing papers
+:::
 
 ## Tools for reproducible data analysis
-
+::: {.incremental}
 -   ![](pngs/R_logo.png){height="0.75in"} [or another programming language]{style="color: #E1E4EC;"}
 -   ![](pngs/RStudio-Logo-Flat.png){height="0.75in"} [or other IDEs with git/github integration]{style="color: #E1E4EC;"}
 -   ![](pngs/Git-Logo.png){height="0.75in"} ![](pngs/GitHub-logo-768x432.png){height="1in"} [or other version control software]{style="color: #E1E4EC;"}
 -   ![](pngs/quarto.jpg){height="0.75in" layout-valign="bottom"} ![](pngs/rmarkdown.png){height="1in"} [or other]{style="color: #E1E4EC;"}
+:::
 
 ## Scripting {background-image="pngs/R_logo.png" background-opacity="0.15"}
 
-**Different scripts for different steps** [(Example)](https://github.com/gbiele/SPS358/tree/master/est_effect)
+**Different scripts for different steps** [(Example)](https://github.com/gbiele/SPS358){.external target="_blank"}
+
+::: {.incremental}
 
 -   utility functions[^3]
 -   data cleaning and preparation[^4]
 -   running analyses [^5]
 -   preparing analysis results for the manuscript
+:::
 
 [^3]: Using functions to implement analysis steps makes the scripts more readable
 
@@ -56,9 +61,14 @@ editor: source
 
 [^5]: Use packages like `MplusAutomation` to interface with external software.
 
+
 ## Working around slow analysis parts
 
-<br>
+**Save intermediate steps**
+
+- pre-processing
+- slow model estimation (MCMC)
+
 
 ```{r}
 #| echo: true
@@ -88,40 +98,50 @@ if (file.exists(fn)) {
 
 [^6]: Can be especially useful on TSD
 
-## Document analysis pipeline in R Markdown {background-image="pngs/Science.png" background-size="65%" background-opacity="0.5" background-position="right"}
+## Document analysis pipeline in R Markdown {background-image="pngs/Science.png" background-size="65%" background-opacity="0.25" background-position="right"}
 
--   R Markdown [document](http://htmlpreview.github.io/?https://github.com/VirologyCharite/SARS-CoV-2-VL-paper/blob/main/ExtendedMethods.html)[^7] for
+-   R Markdown [document](http://htmlpreview.github.io/?https://github.com/VirologyCharite/SARS-CoV-2-VL-paper/blob/main/ExtendedMethods.html){.external target="_blank"}[^7] for
     -   data cleaning
     -   statistical analysis
     -   supplementary <br> analyses & results
     -   generation of <br> statistics for paper
 
-[^7]: [Repository](https://github.com/VirologyCharite/SARS-CoV-2-VL-paper)
+[^7]: [Repository](https://github.com/VirologyCharite/SARS-CoV-2-VL-paper){.external target="_blank"}
 
 ## Writing papers in RStudio with papaja {background-image="pngs/papaja.png" background-size="65%" background-opacity="0.1"}
 
-on [CRAN](https://cran.r-project.org/web/packages/papaja/index.html) &  [github](https://github.com/crsh/papaja) 
+on [CRAN](https://cran.r-project.org/web/packages/papaja/index.html){.external target="_blank"} &  [github](https://github.com/crsh/papaja){.external target="_blank"} 
 
-- is an R Markdown-based package to write APA-6 compliant papers
+- R Markdown-based package to write APA-6 compliant papers
 - GUI to search references (based on bibtex files)
-- allows automatic references to figures & tables in the supplement
+- automatic references to figures & tables in the supplement
 - APA styles for tables and figures
 - Outputs MS Word or PDF files
-- **Upfront investment, but provides comes with huge benefits!**
+- **Upfront investment, but provides huge benefits!**
 
-[Example](https://github.com/gbiele/SPS358/blob/master/Paper/sps358.Rmd)
+[Example](https://github.com/gbiele/SPS358/blob/master/Paper/sps358.Rmd){.external target="_blank"}
+
+## Things I didn't talk about
+
+- testing code: [blog](https://www.vantage-ai.com/en/blog/why-data-scientists-should-write-unit-tests-for-their-code){.external target="_blank"}, [video](https://www.youtube.com/watch?v=zwRdO9_GGhY){.external target="_blank"}
+
+- code documentation: [blog](https://towardsdatascience.com/how-to-write-good-code-documentation-for-data-scientists-c9940aebb4f0){.external target="_blank"}, [editorial](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006561){.external target="_blank"}
+
+- workflow management packages [targets](https://towardsdatascience.com/data-science-workflows-with-the-targets-package-in-r-end-to-end-example-with-code-1e31318074c4){.external target="_blank"}, [workflowr](https://workflowr.github.io/workflowr/){.external target="_blank"}
+
+- Should I write a package?
 
 ## Summary
 
 :::: {.columns}
 
 ::: {.column width="48%"}
-Why reproducible analysis?
+**Why reproducible analysis?**
 
 - makes good research easier
   - less errors
   - faster manuscripts
-  - reviewers appreciate [^7]
+  - reviewers appreciate [^8]
 - reliability & trust
 - lead by example
 :::
@@ -131,7 +151,7 @@ Why reproducible analysis?
 :::
 
 ::: {.column width="48%"}
-Why _not_ ?
+**Why _not_?**
 
 - Start-up investment
 - can't hide parts of the analysis
@@ -141,4 +161,4 @@ Why _not_ ?
 ::::
 
   
-[^7]: Well, those who think methods matter
+[^8]: Well, those who think methods matter
