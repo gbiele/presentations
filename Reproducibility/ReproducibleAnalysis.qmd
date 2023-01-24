@@ -118,11 +118,12 @@ on [CRAN](https://cran.r-project.org/web/packages/papaja/index.html) &  [github]
 ::: {.column width="48%"}
 Why reproducible analysis?
 
-- it makes your life easier
+- makes good research easier
   - less errors
-  - faster writing of manuscripts
+  - faster manuscripts
   - reviewers appreciate [^7]
-- generates trust and reliability
+- reliability & trust
+- lead by example
 :::
 
 ::: {.column width="4%"}
@@ -132,8 +133,8 @@ Why reproducible analysis?
 ::: {.column width="48%"}
 Why _not_ ?
 
-- There is an investment at the start
-- You want to hide part of the analysis
+- Start-up investment
+- can't hide parts of the analysis
 - You want to write as fast as possible a couple of papers to finally become a PI
 :::
 
