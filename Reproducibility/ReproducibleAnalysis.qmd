@@ -43,7 +43,7 @@ editor: source
 -   ![](pngs/quarto.jpg){height="0.75in" layout-valign="bottom"} ![](pngs/rmarkdown.png){height="1in"} [or other]{style="color: #E1E4EC;"}
 :::
 
-## Scripting {background-image="pngs/R_logo.png" background-opacity="0.15"}
+## 1. Scripting {background-image="pngs/R_logo.png" background-opacity="0.15"}
 
 **Different scripts for different steps** [(Example)](https://github.com/gbiele/SPS358){.external target="_blank"}
 
@@ -85,7 +85,7 @@ if (file.exists(fn)) {
 
 ```
 
-## Version control {background-image="pngs/Git-Logo.png" background-size="110%" background-opacity="0.075"}
+## 2. Version control {background-image="pngs/Git-Logo.png" background-size="110%" background-opacity="0.075"}
 
 **Start each paper by setting up a (git/github) project**
 
@@ -98,7 +98,7 @@ if (file.exists(fn)) {
 
 [^6]: Can be especially useful on TSD
 
-## Document analysis pipeline in R Markdown {background-image="pngs/Science.png" background-size="65%" background-opacity="0.25" background-position="right"}
+## 3. Analysis pipeline in R Markdown {background-image="pngs/Science.png" background-size="65%" background-opacity="0.25" background-position="right"}
 
 -   R Markdown [document](http://htmlpreview.github.io/?https://github.com/VirologyCharite/SARS-CoV-2-VL-paper/blob/main/ExtendedMethods.html){.external target="_blank"}[^7] for
     -   data cleaning
@@ -108,15 +108,15 @@ if (file.exists(fn)) {
 
 [^7]: [Repository](https://github.com/VirologyCharite/SARS-CoV-2-VL-paper){.external target="_blank"}
 
-## Writing papers in RStudio with papaja {background-image="pngs/papaja.png" background-size="65%" background-opacity="0.1"}
+## 4. Writing papers with papaja {background-image="pngs/papaja.png" background-size="65%" background-opacity="0.1"}
 
 on [CRAN](https://cran.r-project.org/web/packages/papaja/index.html){.external target="_blank"} &  [github](https://github.com/crsh/papaja){.external target="_blank"} 
 
-- R Markdown-based package to write APA-6 compliant papers
+- APA-6 compliant manuscripts via R Markdown
 - GUI to search references (based on bibtex files)
 - automatic references to figures & tables in the supplement
 - APA styles for tables and figures
-- Outputs MS Word or PDF files
+- outputs MS Word or PDF files
 - **Upfront investment, but provides huge benefits!**
 
 [Example](https://github.com/gbiele/SPS358/blob/master/Paper/sps358.Rmd){.external target="_blank"}
